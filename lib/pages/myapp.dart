@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './../components/AppBar.dart';
+import './../components/floatingaction.dart';
 
 //imports for Navbar
 import './Sleep/sleep.dart';
@@ -43,22 +44,10 @@ class MainState extends State<Mainpage> {
 
   //Navigation for bottomNavigationBar
   int _currentIndex = 0;
-  String currentPage = "Home";
+
 
   //homes for navigation bar
-  final List<Widget> _children = [
-    MainFeed(),
-    SleepFeed(),
-    DiaryFeed(),
-    Settings()
-  ];
 
-  final List<String> _pageNames = [
-    "Home",
-    "Sleep",
-    "Diary",
-    "Settings"
-  ];
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -68,10 +57,13 @@ class MainState extends State<Mainpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(),
-      body: MainBody(_children[_currentIndex], _pageNames[_currentIndex]),
+      appBar: myAppBar(context),
+      body: MainBody(_currentIndex),
+      floatingActionButton: ActionButton(Colors.white, kPrimaryColor),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         height: 60,
+        padding: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -87,12 +79,12 @@ class MainState extends State<Mainpage> {
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.home),
-              color: kPrimaryColor,
+              color: _currentIndex == 0 ? kPrimaryColor : kTextColor,
               onPressed: () {onTabTapped(0);},
             ),
             IconButton(
               icon: Icon(Icons.timer),
-              color: kPrimaryColor,
+              color: _currentIndex == 1 ? kPrimaryColor : kTextColor,
               onPressed: () {onTabTapped(1);},
             ),
             Container(
@@ -100,12 +92,12 @@ class MainState extends State<Mainpage> {
             ),
             IconButton(
               icon: Icon(Icons.book),
-                color: kPrimaryColor,
+              color: _currentIndex == 2 ? kPrimaryColor : kTextColor,
               onPressed: () {onTabTapped(2);},
             ),
             IconButton(
               icon: Icon(Icons.settings),
-              color: kPrimaryColor,
+              color: _currentIndex == 3 ? kPrimaryColor : kTextColor,
               onPressed: () {onTabTapped(3);},
             ),
           ],
@@ -119,10 +111,26 @@ class MainState extends State<Mainpage> {
 
 class MainBody extends StatelessWidget {
 
-  Widget wydget;
-  String page;
+  int page;
 
-  MainBody(this.wydget, this.page);
+  MainBody(this.page);
+
+  String currentPage = "Home";
+
+  final List<Widget> _children = [
+    MainFeed(),
+    SleepFeed(),
+    DiaryFeed(),
+    Settings()
+  ];
+
+  final List<String> _pageNames = [
+    "Home",
+    "Sleep",
+    "Diary",
+    "Settings"
+  ];
+
 @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -140,9 +148,10 @@ class MainBody extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(page, style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 36,
+                      child: Text(_pageNames[page], style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontFamily: 'Rubik'
                       ),),
                     ),
                   ],
@@ -151,7 +160,7 @@ class MainBody extends StatelessWidget {
             ],
           ),
         ),
-        Container(child: wydget),
+        Container(child: _children[page]),
       ],
     );
   }
