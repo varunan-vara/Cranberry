@@ -1,6 +1,7 @@
-import 'package:cranberry/components/AppBar.dart';
+import 'package:cranberry/godfile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:app_settings/app_settings.dart';
 
 class Settings extends StatelessWidget {
 
@@ -77,12 +78,47 @@ class EditHomeFeed extends StatefulWidget{
 
 class EditHome extends State<EditHomeFeed> {
 
+  bool sleepView = true;
+  bool diaryView = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Text("Edit Home Screen"),
+      ),
+      body: Column(
+        children: <Widget>[
+          SwitchListTile(
+            activeTrackColor: Color.fromRGBO(126, 168, 190, 1),
+            inactiveTrackColor: Color.fromRGBO(126, 168, 190, 0.8),
+            activeColor: Color.fromRGBO(40, 83, 107, 1),
+            inactiveThumbColor: Color.fromRGBO(40, 83, 107, 0.8),
+            value: sleepView,
+            title: Text("Show Sleeping Statistics"),
+            onChanged: (value) {
+              setState(() {
+                sleepView = value;
+              });
+              changeSleep(value);
+              },
+          ),
+          SwitchListTile(
+            activeTrackColor: Color.fromRGBO(126, 168, 190, 1),
+            inactiveTrackColor: Color.fromRGBO(126, 168, 190, 0.8),
+            activeColor: Color.fromRGBO(40, 83, 107, 1),
+            inactiveThumbColor: Color.fromRGBO(40, 83, 107, 0.8),
+            value: diaryView,
+            title: Text("Show Personal Diary"),
+            onChanged: (value) {
+              setState(() {
+                diaryView = value;
+              });
+              changeDiary(value);
+              },
+          ),
+        ],
       ),
     );
   }
@@ -106,7 +142,9 @@ class Notif extends State<EditNotif> {
           ListTile(
             title: Text("Edit Notification Settings"),
             subtitle: Text("This will redirect you to the settings page"),
-            onTap: (){},
+            onTap: () {
+              AppSettings.openLocationSettings();
+            }
           ),
         ],
       ),

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 var showSleep = true;
 var showDiary = true;
 
-void changeSleep() {
-  showSleep = !showSleep;
+void changeSleep(val) {
+  showSleep = val;
+  print("showSleep = " + showSleep.toString());
 }
 
-void changeDiary() {
-  showDiary = !showDiary;
+void changeDiary(val) {
+  showDiary = val;
+  print("showDiary = " + showDiary.toString());
 }
