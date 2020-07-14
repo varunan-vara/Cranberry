@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import './../components/AppBar.dart';
 import './../components/floatingaction.dart';
 
@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_statements
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: "Cranberry",
       theme: ThemeData(
@@ -57,8 +62,11 @@ class MainState extends State<Mainpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: myAppBar(context),
-      body: MainBody(_currentIndex),
+      body: SingleChildScrollView(
+        child: MainBody(_currentIndex),
+      ),
       floatingActionButton: ActionButton(Colors.white, kPrimaryColor),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(

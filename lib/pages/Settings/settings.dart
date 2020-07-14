@@ -6,6 +6,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class Settings extends StatelessWidget {
 
+  //https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev"
 
   @override
   Widget build(BuildContext context) {
