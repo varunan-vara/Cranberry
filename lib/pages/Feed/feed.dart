@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../godfile.dart';
 import './../../components/bar.dart';
 import './../../components/floatingaction.dart';
 
@@ -22,6 +23,7 @@ class MainFeed extends StatelessWidget {
                 SleepStats(),
                 Divider(),
                 DoneDiaryFalse(size.width),
+                NothingHere(),
           ],
         ),
           ),
@@ -90,8 +92,9 @@ class SleepStats extends StatefulWidget {
 class Sleeper extends State<SleepStats>{
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 2000,
+    if (showSleep) {
+      return Container(
+        width: 2000,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -104,7 +107,10 @@ class Sleeper extends State<SleepStats>{
         child: Container(
           child: SleepBar(),
         ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
@@ -115,7 +121,8 @@ class DoneDiaryFalse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    if (showDiary) {
+      return Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -186,7 +193,22 @@ class DoneDiaryFalse extends StatelessWidget {
             ),
           ],
         ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
+class NothingHere extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    if (!showSleep && !showDiary) {
+      return Center(
+        child: Text("There's nothing else here!"),
+      );
+    } else {
+      return Center();
+    }
+  }
+}

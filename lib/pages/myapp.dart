@@ -64,9 +64,15 @@ class MainState extends State<Mainpage> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: myAppBar(context),
-      body: SingleChildScrollView(
-        child: MainBody(_currentIndex),
-      ),
+      backgroundColor: Colors.white,
+      body: NotificationListener<OverscrollIndicatorNotification>(
+          // ignore: missing_return
+          onNotification: (OverscrollIndicatorNotification overscroll) {
+            overscroll.disallowGlow();
+          },
+          child: SingleChildScrollView(
+            child: MainBody(_currentIndex),
+          ),),
       floatingActionButton: ActionButton(Colors.white, kPrimaryColor),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(

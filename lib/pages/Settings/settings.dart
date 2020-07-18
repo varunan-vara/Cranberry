@@ -83,8 +83,8 @@ class EditHomeFeed extends StatefulWidget{
 
 class EditHome extends State<EditHomeFeed> {
 
-  bool sleepView = true;
-  bool diaryView = true;
+  bool sleepView = showSleep;
+  bool diaryView = showDiary;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class EditHome extends State<EditHomeFeed> {
             activeColor: Color.fromRGBO(40, 83, 107, 1),
             inactiveThumbColor: Color.fromRGBO(40, 83, 107, 0.8),
             value: diaryView,
-            title: Text("Show Personal Diary"),
+            title: Text("Show Personal Diary Reminder"),
             onChanged: (value) {
               setState(() {
                 diaryView = value;

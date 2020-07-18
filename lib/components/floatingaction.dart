@@ -8,6 +8,8 @@ final List<String> _images = [
   "assets/verysad.svg"
 ];
 
+var feeling = 3;
+
 class ActionButton extends StatelessWidget {
 
   Color main;
@@ -101,6 +103,7 @@ class NuDiary extends State<NewDiary>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: Text("New Diary Entry"),
@@ -133,18 +136,84 @@ class NuDiary extends State<NewDiary>{
                   }
               ),
               Text(""),
+              TextFormField(
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide: new BorderSide(
+                      ),),
+                    fillColor: Color.fromRGBO(126, 168, 190, 0.5),
+                    hoverColor: Color.fromRGBO(126, 168, 190, 1),
+                    focusColor: Color.fromRGBO(40, 83, 107, 1),
+                    hintText: "Location (ie. Work, Home)",
+                    alignLabelWithHint: true,
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    } else {
+
+                    }
+                    return null;
+                  }
+              ),
+              Text(""),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        feeling = 0;
+                      });
+                    },
+                    child: DisablePic(0, Image.asset("assets/verysad.png", height: 70, width: 70,),)
+                  ),
+
+                  FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        feeling = 2;
+                      });
+                    },
+                    child: DisablePic(2, Image.asset("assets/neutral.png", height: 70, width: 70,),)
+                  ),
+                  FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          feeling = 4;
+                        });
+                      },
+                      child: DisablePic(4, Image.asset("assets/veryhappy.png", height: 70, width: 70,),)
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          feeling = 1;
+                        });
+                      },
+                      child: DisablePic(1, Image.asset("assets/sad.png", height: 70, width: 70,),)
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        feeling = 3;
+                      });
+                    },
+                    child: DisablePic(3, Image.asset("assets/happy.png", height: 70, width: 70,),)
+                  ),
 
                 ],
               ),
               Text(""),
-              Row(
-                children: <Widget>[
-                  Text("input date and location inputs")
-                ],
-              ),
-              Text(""),
+
               TextFormField(
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(vertical: 70, horizontal: 10),
@@ -217,3 +286,26 @@ TextStyle quitOption() {
     color: Color.fromRGBO(126, 168, 190, 1),
   );
 }
+
+class DisablePic extends StatelessWidget{
+
+  int nump;
+  Widget _child;
+  DisablePic(this.nump, this._child);
+
+  @override
+  Widget build(BuildContext context) {
+    if (nump == feeling) {
+      return _child;
+    } else {
+      return ColorFiltered(
+        colorFilter: ColorFilter.mode(
+          Colors.white,
+          BlendMode.saturation,
+        ),
+        child: _child,
+      );
+    }
+  }
+}
+
